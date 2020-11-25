@@ -1,0 +1,35 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+ http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.3.xsd
+">
+    <bean autowire="byName"
+          destroy-method="destroy"
+          init-method="init"
+          scope="prototype"
+          id="student"
+          class="cn.bdqn.domain.Student"
+          p:age="20" p:id="1" p:name="沈野11" p:date-ref="currentdate" p:car_-ref="car_"/>
+
+    <bean id="car_" class="cn.bdqn.domain.car">
+        <property name="color" value="灰蓝"></property>
+        <property name="kind" value="保大马"></property>
+    </bean>
+
+    <!--为上边的实体ref一个时间类型-->
+    <bean  id="currentdate" class="java.util.Date"/>
+
+
+      <!--实例工厂-->
+    <bean id="UserServiceImplFactory_1" class="cn.bdqn.utils.UserServiceImplFactory"/>
+
+          <bean id="userService" factory-method="createUserService" factory-bean="UserServiceImplFactory_1"/>
+
+    <!--静态工厂-->
+    <bean  id="UserServiceImplFactory_2" class="cn.bdqn.utils.UserServiceImplFactory"
+           factory-method="createUserServiceTwo"></bean>
+</beans>
